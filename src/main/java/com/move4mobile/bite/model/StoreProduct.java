@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -32,7 +33,7 @@ public class StoreProduct {
     private Store store;
 
     @Getter
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonUnwrapped
     @JsonIdentityReference
     @Id
@@ -40,6 +41,7 @@ public class StoreProduct {
 
     @Getter
     @Setter
+    @NotNull
     private Price price;
 
     @JsonProperty
@@ -51,5 +53,11 @@ public class StoreProduct {
     public static class Key implements Serializable {
         private Long store;
         private Long product;
+
+        public Key() {}
+        public Key(Store store, Product product) {
+            this.store = store.getId();
+            this.product = product.getId();
+        }
     }
 }

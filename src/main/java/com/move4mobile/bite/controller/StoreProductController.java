@@ -1,7 +1,11 @@
 package com.move4mobile.bite.controller;
 
+import com.move4mobile.bite.exception.ConflictException;
+import com.move4mobile.bite.exception.ResourceNotFoundException;
+import com.move4mobile.bite.model.Product;
 import com.move4mobile.bite.model.Store;
 import com.move4mobile.bite.model.StoreProduct;
+import com.move4mobile.bite.model.requestbody.ProductPriceUpdateRequestBody;
 import com.move4mobile.bite.repository.ProductRepository;
 import com.move4mobile.bite.repository.StoreProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +37,30 @@ public class StoreProductController {
     @RequestMapping(method = RequestMethod.POST)
     public StoreProduct create(@PathVariable("storeId") Store store, @Valid @RequestBody StoreProduct product) {
         notNull(store, "Store");
-        StoreProduct createdProduct = new StoreProduct(store, product.getProduct(), product.getPrice());
-        productRepository.save(product.getProduct());
+        Product productToUse = product.getProduct();
+        if (product.getProduct().getId() != null && product.getProduct().getName() == null) {
+            productToUse = productRepository.findOne(product.getProduct().getId());
+            if (productToUse == null) {
+                throw new ResourceNotFoundException("Product");
+            }
+        } else {
+            productRepository.save(productToUse);
+        }
+
+        if (storeProductRepository.exists(new StoreProduct.Key(store, productToUse))) {
+            throw new ConflictException("This store already has this product defined.");
+        }
+
+        StoreProduct createdProduct = new StoreProduct(store, productToUse, product.getPrice());
         storeProductRepository.saveAndFlush(createdProduct);
         return createdProduct;
     }
 
+    @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
+    public StoreProduct updatePrice(@PathVariable("storeId") Store store, @PathVariable("productId") Product product, @Valid @RequestBody ProductPriceUpdateRequestBody updateRequest) {
+        notNull(store, "Store");
+        notNull(product, "Product");
+
+        return storeProductRepository.saveAndFlush(new StoreProduct(store, product, updateRequest.getPrice()));
+    }
 }
