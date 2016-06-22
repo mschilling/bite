@@ -22,6 +22,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -54,7 +55,7 @@ public class Application {
     @Bean
     public Docket biteApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfo("Bite API", "Describes the Move4Mobile Bite API", "1.0", null, null, null, null))
+                .apiInfo(new ApiInfo("Bite API", "Describes the Move4Mobile Bite API", "1.0", null, (Contact)null, null, null))
                 .select()
                     .apis(RequestHandlerSelectors.any())
                     .paths(Predicates.not(PathSelectors.regex("/error")))
@@ -67,19 +68,6 @@ public class Application {
                                 typeResolver.resolve(WildcardType.class)));
 
     }
-
-    /*@Autowired
-    public void configureObjectMapperBuilder(Jackson2ObjectMapperBuilder objectMapperBuilder, ApplicationContext applicationContext) {
-        objectMapperBuilder.handlerInstantiator(new SpringHandlerInstantiator(applicationContext.getAutowireCapableBeanFactory()) {
-            @Override
-            public ObjectIdResolver resolverIdGeneratorInstance(MapperConfig<?> config, Annotated annotated, Class<?> implClass) {
-                if (implClass == EntityIdResolver.class) {
-                    return new EntityIdResolver(entityManager);
-                }
-                return super.resolverIdGeneratorInstance(config, annotated, implClass);
-            }
-        });
-    }*/
 
     @Bean
     public Jackson2ObjectMapperBuilder objectMapperBuilder(ApplicationContext applicationContext) {
@@ -95,18 +83,5 @@ public class Application {
             }
         });
     }
-
-    /*@Bean
-    public Jackson2ObjectMapperBuilder objectMapperBuilder(ApplicationContext applicationContext, Jackson2ObjectMapperBuilder objectMapperBuilder) {
-        return objectMapperBuilder.handlerInstantiator(new SpringHandlerInstantiator(applicationContext.getAutowireCapableBeanFactory()) {
-            @Override
-            public ObjectIdResolver resolverIdGeneratorInstance(MapperConfig<?> config, Annotated annotated, Class<?> implClass) {
-                if (implClass == EntityIdResolver.class) {
-                    return new EntityIdResolver(entityManager);
-                }
-                return super.resolverIdGeneratorInstance(config, annotated, implClass);
-            }
-        });
-    }*/
 
 }

@@ -1,7 +1,6 @@
 package com.move4mobile.bite.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.experimental.PackagePrivate;
 

@@ -13,8 +13,8 @@ public class ResourceNotFoundException extends RuntimeException {
         this(null);
     }
 
-    public ResourceNotFoundException(String message) {
-        super(message);
+    public ResourceNotFoundException(String propertyName) {
+        super(propertyName + " not found");
     }
 
 }
