@@ -6,14 +6,14 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.google.common.base.Predicates;
-import com.move4mobile.bite.controller.StoreController;
 import com.move4mobile.bite.resolver.EntityIdResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.SpringHandlerInstantiator;
@@ -37,8 +37,9 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
  */
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackageClasses = {
-        StoreController.class
+@EntityScan(basePackageClasses = {
+        Application.class,
+        Jsr310Converters.class
 })
 public class Application {
 
