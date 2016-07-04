@@ -3,6 +3,7 @@ package com.move4mobile.bite;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.annotation.ObjectIdResolver;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.google.common.base.Predicates;
@@ -13,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.SpringHandlerInstantiator;
@@ -38,8 +38,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @SpringBootApplication
 @EnableSwagger2
 @EntityScan(basePackageClasses = {
-        Application.class,
-        Jsr310Converters.class
+        Application.class
 })
 public class Application {
 
@@ -74,6 +73,7 @@ public class Application {
     public Jackson2ObjectMapperBuilder objectMapperBuilder(ApplicationContext applicationContext) {
         return new Jackson2ObjectMapperBuilder()
                 .propertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES)
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .handlerInstantiator(new SpringHandlerInstantiator(applicationContext.getAutowireCapableBeanFactory()) {
             @Override
             public ObjectIdResolver resolverIdGeneratorInstance(MapperConfig<?> config, Annotated annotated, Class<?> implClass) {

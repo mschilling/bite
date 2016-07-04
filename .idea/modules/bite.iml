@@ -24,6 +24,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.eclipse.persistence:javax.persistence:2.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-java8:5.1.0.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.1.0.Final" level="project" />
     <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.0.b2" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-entitymanager:5.1.0.Final" level="project" />
