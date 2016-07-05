@@ -17,7 +17,7 @@ import static com.move4mobile.bite.support.Validate.notNull;
 /**
  * Created by Wilco Wolters on 04/07/2016.
  */
-public class BaseController<T extends BaseEntity> {
+public abstract class BaseController<T extends BaseEntity> {
 
     @Inject
     protected BaseRepository<T> repository;
