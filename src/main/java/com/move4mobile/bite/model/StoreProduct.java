@@ -59,5 +59,24 @@ public class StoreProduct {
             this.store = store.getId();
             this.product = product.getId();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Key key = (Key) o;
+
+            if (store != null ? !store.equals(key.store) : key.store != null) return false;
+            return product != null ? product.equals(key.product) : key.product == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = store != null ? store.hashCode() : 0;
+            result = 31 * result + (product != null ? product.hashCode() : 0);
+            return result;
+        }
     }
 }
