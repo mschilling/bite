@@ -49,7 +49,7 @@ public class StoreProductController {
 
             if (existingProduct.isPresent()) {
                 Product foundProduct = existingProduct.get();
-                if (foundProduct.equals(product.getProduct())) {
+                if (foundProduct.getType().equals(product.getProduct().getType()) && foundProduct.getTags().equals(product.getProduct().getTags())) {
                     productToUse = foundProduct;
                 } else {
                     throw new ConflictException("A product with this name, but different type or tags already exists");
