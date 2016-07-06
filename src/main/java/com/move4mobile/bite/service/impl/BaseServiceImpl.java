@@ -28,7 +28,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     }
 
     @Override
-    public Optional<T> find(long id) {
+    public Optional<T> find(Long id) {
         return Optional.of(repository.findOne(id));
     }
 
@@ -42,5 +42,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     @Override
     public void delete(T t) {
         repository.delete(t);
+    }
+
+    protected <R extends BaseRepository<T>> R getRepository() {
+        //noinspection unchecked
+        return (R) repository;
     }
 }

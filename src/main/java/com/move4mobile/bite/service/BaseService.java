@@ -14,7 +14,7 @@ public interface BaseService<T extends BaseEntity> {
 
     T create(T t);
 
-    Optional<T> find(long id);
+    Optional<T> find(Long id);
 
     T modify(Long id, T t);
 

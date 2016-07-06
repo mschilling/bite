@@ -1,19 +1,15 @@
 package com.move4mobile.bite.controller;
 
-import com.move4mobile.bite.exception.ConflictException;
-import com.move4mobile.bite.exception.ResourceNotFoundException;
 import com.move4mobile.bite.model.Product;
 import com.move4mobile.bite.model.Store;
 import com.move4mobile.bite.model.StoreProduct;
 import com.move4mobile.bite.model.requestbody.ProductPriceUpdateRequestBody;
-import com.move4mobile.bite.repository.ProductRepository;
-import com.move4mobile.bite.repository.StoreProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.move4mobile.bite.service.StoreProductService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 import static com.move4mobile.bite.support.Validate.notNull;
 
@@ -24,11 +20,8 @@ import static com.move4mobile.bite.support.Validate.notNull;
 @RequestMapping("/stores/{storeId}/products")
 public class StoreProductController {
 
-    @Autowired
-    private StoreProductRepository storeProductRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
+    @Inject
+    private StoreProductService service;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<StoreProduct> listAll(@PathVariable("storeId") Store store) {
@@ -38,34 +31,7 @@ public class StoreProductController {
     @RequestMapping(method = RequestMethod.POST)
     public StoreProduct create(@PathVariable("storeId") Store store, @Valid @RequestBody StoreProduct product) {
         notNull(store, "Store");
-        final Product productToUse;
-        if (product.getProduct().getId() != null && product.getProduct().getName() == null) {
-            productToUse = productRepository.findOne(product.getProduct().getId());
-            if (productToUse == null) {
-                throw new ResourceNotFoundException("Product");
-            }
-        } else {
-            Optional<Product> existingProduct = productRepository.findByName(product.getProduct().getName());
-
-            if (existingProduct.isPresent()) {
-                Product foundProduct = existingProduct.get();
-                if (foundProduct.getType().equals(product.getProduct().getType()) && foundProduct.getTags().equals(product.getProduct().getTags())) {
-                    productToUse = foundProduct;
-                } else {
-                    throw new ConflictException("A product with this name, but different type or tags already exists");
-                }
-            } else {
-                productToUse = productRepository.save(product.getProduct());
-            }
-        }
-
-        if (storeProductRepository.exists(new StoreProduct.Key(store, productToUse))) {
-            throw new ConflictException("This store already has this product defined.");
-        }
-
-        StoreProduct createdProduct = new StoreProduct(store, productToUse, product.getPrice());
-        storeProductRepository.saveAndFlush(createdProduct);
-        return createdProduct;
+        return service.create(store, product.getProduct(), product.getPrice());
     }
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
@@ -73,6 +39,6 @@ public class StoreProductController {
         notNull(store, "Store");
         notNull(product, "Product");
 
-        return storeProductRepository.saveAndFlush(new StoreProduct(store, product, updateRequest.getPrice()));
+        return service.update(store, product, updateRequest.getPrice());
     }
 }
