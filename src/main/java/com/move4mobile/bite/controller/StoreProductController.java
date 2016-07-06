@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 import static com.move4mobile.bite.support.Validate.notNull;
 
@@ -37,14 +38,25 @@ public class StoreProductController {
     @RequestMapping(method = RequestMethod.POST)
     public StoreProduct create(@PathVariable("storeId") Store store, @Valid @RequestBody StoreProduct product) {
         notNull(store, "Store");
-        Product productToUse = product.getProduct();
+        final Product productToUse;
         if (product.getProduct().getId() != null && product.getProduct().getName() == null) {
             productToUse = productRepository.findOne(product.getProduct().getId());
             if (productToUse == null) {
                 throw new ResourceNotFoundException("Product");
             }
         } else {
-            productRepository.save(productToUse);
+            Optional<Product> existingProduct = productRepository.findByName(product.getProduct().getName());
+
+            if (existingProduct.isPresent()) {
+                Product foundProduct = existingProduct.get();
+                if (foundProduct.equals(product.getProduct())) {
+                    productToUse = foundProduct;
+                } else {
+                    throw new ConflictException("A product with this name, but different type or tags already exists");
+                }
+            } else {
+                productToUse = productRepository.save(product.getProduct());
+            }
         }
 
         if (storeProductRepository.exists(new StoreProduct.Key(store, productToUse))) {

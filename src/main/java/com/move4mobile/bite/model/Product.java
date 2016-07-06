@@ -9,8 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Wilco Wolters on 23/01/2016.
@@ -22,6 +22,7 @@ public class Product extends BaseEntity {
     @Getter
     @Setter
     @NotNull
+    @Column(unique = true)
     private String name;
 
     @Getter
@@ -33,10 +34,10 @@ public class Product extends BaseEntity {
 
     @NotNull
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Tag> tags = new ArrayList<>();
+    private Set<Tag> tags = new HashSet<>();
 
-    public List<Tag> getTags() {
-        return new ArrayList<>(tags);
+    public Set<Tag> getTags() {
+        return new HashSet<>(tags);
     }
 
     public void addTag(Tag tag) {
@@ -47,4 +48,23 @@ public class Product extends BaseEntity {
         return tags.remove(tag);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (!name.equals(product.name)) return false;
+        if (!type.equals(product.type)) return false;
+        return tags.equals(product.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + tags.hashCode();
+        return result;
+    }
 }
