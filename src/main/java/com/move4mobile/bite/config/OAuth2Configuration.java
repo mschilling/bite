@@ -1,0 +1,38 @@
+package com.move4mobile.bite.config;
+
+import com.move4mobile.bite.exception.ResourceNotFoundException;
+import com.move4mobile.bite.repository.ClientDetailsRepository;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+
+import javax.inject.Inject;
+
+/**
+ * Created by Wilco Wolters on 07/07/2016.
+ */
+@Configuration
+@EnableResourceServer
+@EnableAuthorizationServer
+public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
+
+    @Inject
+    private ClientDetailsRepository clientDetailsRepository;
+
+    @Inject
+    private AuthenticationManager authenticationManager;
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.authenticationManager(authenticationManager);
+    }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.withClientDetails(clientId -> clientDetailsRepository.findByClientId(clientId).orElseThrow(() -> new ResourceNotFoundException("Client")));
+    }
+}

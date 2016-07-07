@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.move4mobile.bite.exception.BadRequestException;
 import com.move4mobile.bite.model.BaseEntity;
 import com.move4mobile.bite.service.BaseService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
