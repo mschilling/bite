@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 
 import javax.inject.Inject;
@@ -16,9 +15,8 @@ import javax.inject.Inject;
  * Created by Wilco Wolters on 07/07/2016.
  */
 @Configuration
-@EnableResourceServer
 @EnableAuthorizationServer
-public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
+public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Inject
     private ClientDetailsRepository clientDetailsRepository;

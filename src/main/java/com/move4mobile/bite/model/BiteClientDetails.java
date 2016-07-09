@@ -6,8 +6,6 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.Duration;
 import java.util.*;
 
@@ -35,9 +33,6 @@ public class BiteClientDetails extends BaseEntity implements ClientDetails {
     private String scope;
 
     private static final Set<String> grantTypes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("password", "refresh_token")));
-
-    @Enumerated(EnumType.STRING)
-    private Role grantedRole;
 
     @Override
     public Set<String> getResourceIds() {
@@ -71,7 +66,7 @@ public class BiteClientDetails extends BaseEntity implements ClientDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(grantedRole);
+        return Collections.emptySet();
     }
 
     @Override
