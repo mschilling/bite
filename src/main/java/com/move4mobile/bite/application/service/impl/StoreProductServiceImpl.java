@@ -41,7 +41,7 @@ public class StoreProductServiceImpl extends BaseServiceImpl<StoreProduct, Store
 
         Product createdProduct = findOrCreate(product);
 
-        if (repository.exists(new StoreProduct.Key(store, product))) {
+        if (repository.exists(new StoreProduct.Key(store, createdProduct))) {
             throw new ConflictException("This store already has this product defined.");
         }
 
