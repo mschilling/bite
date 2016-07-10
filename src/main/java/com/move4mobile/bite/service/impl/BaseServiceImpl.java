@@ -29,7 +29,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
 
     @Override
     public Optional<T> find(Long id) {
-        return Optional.of(repository.findOne(id));
+        return Optional.ofNullable(repository.findOne(id));
     }
 
     @Override

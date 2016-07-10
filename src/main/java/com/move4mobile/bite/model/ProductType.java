@@ -18,7 +18,7 @@ import java.util.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", resolver = EntityIdResolver.class, scope = ProductType.class)
-public class ProductType extends BaseEntity {
+public final class ProductType extends BaseEntity {
 
     @Getter
     @Setter

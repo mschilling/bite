@@ -1,7 +1,10 @@
 package com.move4mobile.bite.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.move4mobile.bite.resolver.EntityIdResolver;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +23,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "\"order\"")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", resolver = EntityIdResolver.class, scope = Order.class)
 public class Order extends BaseEntity {
+
 
     @ManyToOne
     @JsonIdentityReference(alwaysAsId = true)
