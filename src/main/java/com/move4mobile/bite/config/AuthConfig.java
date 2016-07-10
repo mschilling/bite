@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.inject.Inject;
@@ -28,7 +27,6 @@ public class AuthConfig extends GlobalAuthenticationConfigurerAdapter {
     @Bean
     UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .map(user -> new User(user.getEmail(), user.getPassword(), true, true, true, true, user.getRoles()))
                 .orElseThrow(() -> new ResourceNotFoundException("User"));
     }
 
