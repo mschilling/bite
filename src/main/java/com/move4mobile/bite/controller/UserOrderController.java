@@ -47,7 +47,7 @@ public class UserOrderController {
         List<OrderProduct> products = userOrder.getProducts();
         products.forEach(orderProduct -> orderProduct.setOrder(foundOrder));
         foundOrder.setProducts(products);
-        return service.modify(foundOrder.getId(), foundOrder);
+        return service.store(foundOrder);
     }
 
 }

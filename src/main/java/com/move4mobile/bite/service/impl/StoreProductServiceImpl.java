@@ -69,7 +69,7 @@ public class StoreProductServiceImpl implements StoreProductService {
             return existingProduct;
         }
 
-        return productService.create(product);
+        return productService.store(product);
     }
 
     private Product findById(Long id) {

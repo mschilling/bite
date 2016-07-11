@@ -12,11 +12,9 @@ public interface BaseService<T extends BaseEntity> {
 
     List<T> getAll();
 
-    T create(T t);
+    T store(T t);
 
     Optional<T> find(Long id);
-
-    T modify(Long id, T t);
 
     void delete(T t);
 

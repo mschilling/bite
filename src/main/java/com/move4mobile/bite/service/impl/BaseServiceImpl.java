@@ -6,7 +6,6 @@ import com.move4mobile.bite.service.BaseService;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,20 +22,13 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     }
 
     @Override
-    public T create(T t) {
+    public T store(T t) {
         return repository.saveAndFlush(t);
     }
 
     @Override
     public Optional<T> find(Long id) {
         return Optional.ofNullable(repository.findOne(id));
-    }
-
-    @Override
-    public T modify(Long id, T t) {
-        assert Objects.equals(id, t.getId());
-
-        return repository.saveAndFlush(t);
     }
 
     @Override

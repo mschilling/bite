@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.move4mobile.bite.exception.BadRequestException;
 import com.move4mobile.bite.model.BaseEntity;
 import com.move4mobile.bite.service.BaseService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,7 @@ public abstract class BaseController<T extends BaseEntity> {
 
     @RequestMapping(method = RequestMethod.POST)
     public T create(@Valid @RequestBody T t) {
-        return service.create(t);
+        return service.store(t);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -46,7 +45,7 @@ public abstract class BaseController<T extends BaseEntity> {
         if (!Objects.equals(notNull(idProvider, "id").getId(), t.getId())) {
             throw new BadRequestException("id in path and in object should be equal");
         }
-        return service.modify(idProvider.getId(), t);
+        return service.store(t);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
