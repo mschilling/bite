@@ -50,7 +50,7 @@ public final class User extends BaseEntity implements UserDetails {
     @Column(name = "role")
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     @Getter
     @Setter
     private List<UserOrder> orders;

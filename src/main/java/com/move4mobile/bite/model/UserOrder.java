@@ -3,7 +3,6 @@ package com.move4mobile.bite.model;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,8 +37,15 @@ public final class UserOrder extends BaseEntity {
     @JsonView(BaseEntity.DefaultView.class)
     private Order order;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderProduct> products = new ArrayList<>();
+
+    public List<OrderProduct> getProducts() {
+        return new ArrayList<>(products);
+    }
+
+    public void setProducts(List<OrderProduct> products) {
+        this.products.clear();
+        this.products.addAll(products);
+    }
 }

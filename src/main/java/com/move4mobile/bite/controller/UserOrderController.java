@@ -5,7 +5,6 @@ import com.move4mobile.bite.model.OrderProduct;
 import com.move4mobile.bite.model.User;
 import com.move4mobile.bite.model.UserOrder;
 import com.move4mobile.bite.service.UserOrderService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -24,7 +23,7 @@ public class UserOrderController {
     private UserOrderService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public UserOrder getForCurrentUser(@PathVariable("order_id") Order order, @AuthenticationPrincipal User user) {
+    public UserOrder getForCurrentUser(@PathVariable("order_id") Order order, User user) {
         return getForUser(order, user);
     }
 
@@ -38,7 +37,7 @@ public class UserOrderController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public UserOrder placeForCurrentUser(@PathVariable("order_id") Order order, @AuthenticationPrincipal User user, @RequestBody UserOrder userOrder) {
+    public UserOrder placeForCurrentUser(@PathVariable("order_id") Order order, User user, @RequestBody UserOrder userOrder) {
         return placeForUser(order, user, userOrder);
     }
 
