@@ -4,7 +4,7 @@ import com.move4mobile.bite.model.Order;
 import com.move4mobile.bite.model.OrderProduct;
 import com.move4mobile.bite.model.User;
 import com.move4mobile.bite.model.UserOrder;
-import com.move4mobile.bite.service.UserOrderService;
+import com.move4mobile.bite.service.BaseService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ import static com.move4mobile.bite.support.Validate.notNull;
 public class UserOrderController {
 
     @Inject
-    private UserOrderService service;
+    private BaseService<UserOrder> service;
 
     @RequestMapping(method = RequestMethod.GET)
     public UserOrder getForCurrentUser(@PathVariable("order_id") Order order, User user) {

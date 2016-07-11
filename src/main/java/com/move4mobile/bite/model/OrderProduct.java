@@ -2,6 +2,7 @@ package com.move4mobile.bite.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.move4mobile.bite.validation.constraints.AllowedAccessory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "order-product-accessory", columnNames = {"order_id", "product_id", "accessory_id"}))
+@AllowedAccessory
 public final class OrderProduct extends BaseEntity {
 
     @ManyToOne
