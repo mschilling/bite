@@ -1,4 +1,8 @@
 
+# Ignore developer properties
+/config/*.properties
+!/config/application.properties
+
 ### Java template
 *.class
 
@@ -117,4 +121,3 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
-
