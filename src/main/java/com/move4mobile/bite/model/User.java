@@ -39,6 +39,7 @@ public final class User extends BaseEntity implements UserDetails {
     @Getter
     @Setter
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonView(RegisterView.class)
     private String password;
 
     @Getter
@@ -90,4 +91,6 @@ public final class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public interface RegisterView extends DefaultView {}
 }
