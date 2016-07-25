@@ -1,0 +1,106 @@
+FORMAT: 1A
+HOST: https://bite.move4mobile.com/
+
+# Bite
+
+Bite is the system used for ordering snacks by Move4Mobile
+
+# Data Structures
+
+## Store (object)
+
++ id: 1 (number)
++ name: Visboer (string, required)
++ description: Verkoopt vis (string, required)
+
+## StoreDetail (Store)
+
++ products (array[StoreProduct])
++ base_product_type: 1 (number, required) - Id of default product type
+
+## Product (object)
+
++ id: 1 (number)
++ name: Kibbeling (string, required)
++ type: 1 (number, required) - Id of Product Type
+
+## StoreProduct (object)
+
++ Include Product
++ store: 1 (number, required) - Id of store
++ price: 450 (number, required) - Price in cents of product
+
+## Order (object)
+
++ id: 1 (number)
++ store: 1 (number, required) - Id of store
++ open_date: `2016-07-04T20:00:00+02:00` (string, required) - Date when order opens
++ close_date: `2016-07-04T20:00:00+02:00` (string) - Date when order closes or was closed
+
+## OrderDetail (Order)
+
++ user_orders (array[UserOrder])
+
+## UserOrder
+
++ user: 1 (number, required) - Id of user
++ order: 1 (number, required) - Id of order
++ products (array[OrderProduct])
+
+## OrderProduct
+
++ product: 1 (number, required) - Id of product
++ accessory: 1 (number, optional) - Id of product used as accessory
++ quantity: 1 (number, optional) - Amount of product
+
+## Stores [/stores]
+
+### List All Stores [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Store])
+
+### Get Details of Store [GET /stores/{id}]
+
++ Response 200 (application/json)
+
+    + Attributes (StoreDetail)
+
+### Create a New Store [POST]
+
++ Request (application/json)
+
+    + Attributes (StoreDetail)
+    
++ Response 201 (application/json)
+
+    + Attributes (StoreDetail)
+
+## Orders [/orders]
+
+### List All Orders [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Order])
+    
+### Get Details of Order [GET /orders/{id}]
+
++ Parameters
+    
+    + id: 1 (number) - Id of order
+
++ Response 200 (application/json)
+
+    + Attributes (OrderDetail)
+
+### Create a New Order [POST]
+
++ Request (application/json)
+
+    + Attributes (Order)
+
++ Response 201 (application/json)
+
+    + Attributes (OrderDetail)
