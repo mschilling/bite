@@ -41,17 +41,66 @@ Bite is the system used for ordering snacks by Move4Mobile
 
 + user_orders (array[UserOrder])
 
-## UserOrder
+## UserOrder (object)
 
 + user: 1 (number, required) - Id of user
 + order: 1 (number, required) - Id of order
 + products (array[OrderProduct])
 
-## OrderProduct
+## OrderProduct (object)
 
 + product: 1 (number, required) - Id of product
 + accessory: 1 (number, optional) - Id of product used as accessory
 + quantity: 1 (number, optional) - Amount of product
+
+## User (object)
+
++ id: 1 (number)
++ name: Wilco (string)
++ email: wwolters@move4mobile.com (string)
+
+## UserDetail (User)
+
++ orders (array[Order])
+
+## Authentication [/oauth/token]
+
+### Login [POST]
+
++ Request Username/Password (application/json)
+
+    + Attributes
+        + grant_type: password (string, required)
+        + username: wilco@move4mobile.com (string, required) - Should be email of user
+        + password: abcdef (string, required)
+        
++ Request Refresh Token (application/json)
+
+    + Attributes
+        + `grant_type`: `refresh_token` (string, required)
+        + refresh_token: 14e0694d-3372-4d34-a0be-4729658cdcd2
+
++ Response 200 (application/json)
+
+    + Attributes
+        + access_token: 734cc2ee-e610-4ffb-9721-8a36b07b4cc3
+        + token_type: bearer
+        + refresh_token: de3499cd-b431-419c-be27-9508a5bb41ba
+        + expires_in: 3599
+        + scope: api
+
+### Register [POST /register]
+
++ Request (application/json)
+    
+    + Attributes
+        + name: Wilco (string, required) - Displayed name
+        + email: wwolters@move4mobile.com (string, required)
+        + password: abcdef (string, required)
+    
++ Response 201 (application/json)
+
+    + Attributes (User)
 
 ## Stores [/stores]
 
