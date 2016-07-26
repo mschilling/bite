@@ -18,6 +18,16 @@ import javax.validation.constraints.NotNull;
 @AllowedAccessory
 public final class OrderProduct extends BaseEntity {
 
+    public OrderProduct() {
+    }
+
+    public OrderProduct(UserOrder order, Product product, Product accessory, long quantity) {
+        this.order = order;
+        this.product = product;
+        this.accessory = accessory;
+        this.quantity = quantity;
+    }
+
     @ManyToOne
     @NotNull
     @JsonIgnore

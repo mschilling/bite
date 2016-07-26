@@ -4,11 +4,14 @@ import com.move4mobile.bite.model.Order;
 import com.move4mobile.bite.model.OrderProduct;
 import com.move4mobile.bite.model.User;
 import com.move4mobile.bite.model.UserOrder;
+import com.move4mobile.bite.model.requestbody.UserOrderRequestBody;
 import com.move4mobile.bite.service.BaseService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.move4mobile.bite.support.Validate.notNull;
 
@@ -37,14 +40,17 @@ public class UserOrderController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public UserOrder placeForCurrentUser(@PathVariable("order_id") Order order, User user, @RequestBody UserOrder userOrder) {
+    public UserOrder placeForCurrentUser(@PathVariable("order_id") Order order, User user, @Valid @RequestBody UserOrderRequestBody userOrder) {
         return placeForUser(order, user, userOrder);
     }
 
     @RequestMapping(value = "{user_id}", method = RequestMethod.PUT)
-    public UserOrder placeForUser(@PathVariable("order_id") Order order, @PathVariable("user_id") User user, @RequestBody UserOrder userOrder) {
+    public UserOrder placeForUser(@PathVariable("order_id") Order order, @PathVariable("user_id") User user, @Valid @RequestBody UserOrderRequestBody userOrder) {
         UserOrder foundOrder = getForUser(order, user);
-        List<OrderProduct> products = userOrder.getProducts();
+        List<OrderProduct> products = userOrder.getProducts()
+                .stream()
+                .map(orderProduct -> new OrderProduct(foundOrder, orderProduct.getProduct(), orderProduct.getAccessory(), orderProduct.getQuantity()))
+                .collect(Collectors.toList());
         products.forEach(orderProduct -> orderProduct.setOrder(foundOrder));
         foundOrder.setProducts(products);
         return service.store(foundOrder);
