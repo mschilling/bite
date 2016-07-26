@@ -30,6 +30,13 @@ Bite is the system used for ordering snacks by Move4Mobile
 + store: 1 (number, required) - Id of store
 + price: 450 (number, required) - Price in cents of product
 
+## Accessory (object)
+
++ id: 1 (number)
++ store: 1 (number, required) - Id of store
++ product: 1 (number, required) - Id of product
++ price_modification: 10 (number) - Change of price of product when used as accessory
+
 ## Order (object)
 
 + id: 1 (number)
@@ -62,6 +69,15 @@ Bite is the system used for ordering snacks by Move4Mobile
 ## UserDetail (User)
 
 + orders (array[Order])
+
+## ProductType (object)
+
++ id: 2 (number)
++ name: Snack (string, required)
++ super_type: 1 (number, optional) - Id of super type, or parent folder
++ accessories (array[Accessory]) - List of accessories this product type can use.
+
+## ProductTypeDetail (ProductType)
 
 ## Authentication [/oauth/token]
 
@@ -112,6 +128,10 @@ Bite is the system used for ordering snacks by Move4Mobile
 
 ### Get Details of Store [GET /stores/{id}]
 
++ Parameters
+    
+    + id: 1 (number) - Id of store
+
 + Response 200 (application/json)
 
     + Attributes (StoreDetail)
@@ -153,3 +173,35 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Response 201 (application/json)
 
     + Attributes (OrderDetail)
+    
+## Product Types [/product_types]
+
+### List All Product Types [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[ProductType])
+    
+### Create a New Product Type [POST]
+
++ Request (application/json)
+
+    + Attributes (ProductType)
+    
++ Response 201 (application/json)
+
+    + Attributes (ProductTypeDetail)
+    
+### Change an Existing Product Type [PUT /product_types/{id}]
+
++ Parameters
+    
+    + id: 1 (number) - Id of product type
+
++ Request (application/json)
+
+    + Attributes (ProductType)
+    
++ Response 200 (application/json)
+
+    + Attributes (ProductTypeDetail)
