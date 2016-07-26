@@ -48,11 +48,14 @@ Bite is the system used for ordering snacks by Move4Mobile
 
 + user_orders (array[UserOrder])
 
-## UserOrder (object)
+## UserOrderRequest (object)
+
++ products (array[OrderProduct])
+
+## UserOrder (UserOrderRequest)
 
 + user: 1 (number, required) - Id of user
 + order: 1 (number, required) - Id of order
-+ products (array[OrderProduct])
 
 ## OrderProduct (object)
 
@@ -174,6 +177,54 @@ Bite is the system used for ordering snacks by Move4Mobile
 
     + Attributes (OrderDetail)
     
+## User Orders [/orders/{order_id}/user]
+
++ Parameters
+
+    + order_id: 1 (number, required) - Id of the order
+
+### Get Order for Current User [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (UserOrder)
+    
+### Place Order for Current User [PUT]
+
++ Request (application/json)
+
+    + Attributes (UserOrderRequest)
+    
++ Response 200 (application/json)
+
+    + Attributes (UserOrder)
+    
+### Get Order For Other User [GET /orders/{order_id}/user/{user_id}]
+
++ Parameters
+    
+    + order_id: 1 (number, required) - Id of the order
+    + user_id: 1 (number, required) - Id of the user
+
++ Response 200 (application/json)
+
+    + Attributes (UserOrder)
+    
+### Place Order for Other User [PUT /orders/{order_id}/user/{user_id}]
+
++ Parameters
+    
+    + order_id: 1 (number, required) - Id of the order
+    + user_id: 1 (number, required) - Id of the user
+
++ Request (application/json)
+
+    + Attributes (UserOrderRequest)
+    
++ Response 200 (application/json)
+
+    + Attributes (UserOrder)
+
 ## Product Types [/product_types]
 
 ### List All Product Types [GET]
