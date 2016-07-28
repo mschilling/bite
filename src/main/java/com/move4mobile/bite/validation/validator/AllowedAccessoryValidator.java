@@ -2,12 +2,10 @@ package com.move4mobile.bite.validation.validator;
 
 import com.move4mobile.bite.model.Accessory;
 import com.move4mobile.bite.model.OrderProduct;
-import com.move4mobile.bite.model.Product;
 import com.move4mobile.bite.validation.constraints.AllowedAccessory;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Collection;
 
 /**
  * Created by Wilco Wolters on 11/07/2016.
@@ -28,12 +26,8 @@ public class AllowedAccessoryValidator implements ConstraintValidator<AllowedAcc
             return true;
         }
 
-        Product accessoryProduct = product.getAccessory();
-        return collectionContains(product.getProduct().getType().getAllAccessories(), accessoryProduct);
+        Accessory accessory = product.getAccessory();
+        return product.getProduct().getType().getAllAccessories().contains(accessory);
     }
 
-    private static boolean collectionContains(Collection<Accessory> accessories, Product product) {
-        return accessories.stream()
-                .anyMatch(accessory -> accessory.getProduct().equals(product));
-    }
 }

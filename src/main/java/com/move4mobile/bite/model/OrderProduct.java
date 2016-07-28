@@ -21,7 +21,7 @@ public final class OrderProduct extends BaseEntity {
     public OrderProduct() {
     }
 
-    public OrderProduct(UserOrder order, Product product, Product accessory, long quantity) {
+    public OrderProduct(UserOrder order, Product product, Accessory accessory, long quantity) {
         this.order = order;
         this.product = product;
         this.accessory = accessory;
@@ -44,8 +44,7 @@ public final class OrderProduct extends BaseEntity {
     @Getter
     @Setter
     @ManyToOne
-    @JsonIdentityReference(alwaysAsId = true)
-    private Product accessory;
+    private Accessory accessory;
 
     @Getter
     @Setter

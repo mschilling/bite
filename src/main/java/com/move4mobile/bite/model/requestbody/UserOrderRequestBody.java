@@ -1,6 +1,7 @@
 package com.move4mobile.bite.model.requestbody;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.move4mobile.bite.model.Accessory;
 import com.move4mobile.bite.model.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +39,7 @@ public class UserOrderRequestBody {
         @Getter
         @Setter
         @JsonIdentityReference(alwaysAsId = true)
-        private Product accessory;
+        private Accessory accessory;
 
         @Getter
         @Setter
