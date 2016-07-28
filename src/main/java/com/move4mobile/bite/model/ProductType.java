@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -32,6 +33,7 @@ public final class ProductType extends BaseEntity {
 
     @NotNull
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @Valid
     private List<Accessory> accessories = new ArrayList<>();
 
     @JsonIgnore

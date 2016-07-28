@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public final class UserOrder extends BaseEntity {
     private Order order;
 
     @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Valid
     private List<OrderProduct> products = new ArrayList<>();
 
     public List<OrderProduct> getProducts() {

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,6 +35,7 @@ public class Product extends BaseEntity {
 
     @NotNull
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Valid
     private Set<Tag> tags = new HashSet<>();
 
     public Set<Tag> getTags() {
