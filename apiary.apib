@@ -60,7 +60,7 @@ Bite is the system used for ordering snacks by Move4Mobile
 ## OrderProduct (object)
 
 + product: 1 (number, required) - Id of product
-+ accessory: 1 (number, optional) - Id of accessory
++ accessory: 1 (number, optional) - Id of product used as accessory
 + quantity: 1 (number, optional) - Amount of product
 
 ## User (object)
@@ -93,7 +93,7 @@ Bite is the system used for ordering snacks by Move4Mobile
         + grant_type: password (string, required)
         + username: wilco@move4mobile.com (string, required) - Should be email of user
         + password: abcdef (string, required)
-        
+
 + Request Refresh Token (application/json)
 
     + Attributes
@@ -112,12 +112,12 @@ Bite is the system used for ordering snacks by Move4Mobile
 ### Register [POST /register]
 
 + Request (application/json)
-    
+
     + Attributes
         + name: Wilco (string, required) - Displayed name
         + email: wwolters@move4mobile.com (string, required)
         + password: abcdef (string, required)
-    
+
 + Response 201 (application/json)
 
     + Attributes (User)
@@ -133,7 +133,7 @@ Bite is the system used for ordering snacks by Move4Mobile
 ### Get Details of Store [GET /stores/{id}]
 
 + Parameters
-    
+
     + id: 1 (number) - Id of store
 
 + Response 200 (application/json)
@@ -145,7 +145,7 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Request (application/json)
 
     + Attributes (StoreDetail)
-    
+
 + Response 201 (application/json)
 
     + Attributes (StoreDetail)
@@ -157,11 +157,11 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Response 200 (application/json)
 
     + Attributes (array[Order])
-    
+
 ### Get Details of Order [GET /orders/{id}]
 
 + Parameters
-    
+
     + id: 1 (number) - Id of order
 
 + Response 200 (application/json)
@@ -177,7 +177,7 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Response 201 (application/json)
 
     + Attributes (OrderDetail)
-    
+
 ## User Orders [/orders/{order_id}/user]
 
 + Parameters
@@ -189,39 +189,39 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Response 200 (application/json)
 
     + Attributes (UserOrder)
-    
+
 ### Place Order for Current User [PUT]
 
 + Request (application/json)
 
     + Attributes (UserOrderRequest)
-    
+
 + Response 200 (application/json)
 
     + Attributes (UserOrder)
-    
+
 ### Get Order For Other User [GET /orders/{order_id}/user/{user_id}]
 
 + Parameters
-    
+
     + order_id: 1 (number, required) - Id of the order
     + user_id: 1 (number, required) - Id of the user
 
 + Response 200 (application/json)
 
     + Attributes (UserOrder)
-    
+
 ### Place Order for Other User [PUT /orders/{order_id}/user/{user_id}]
 
 + Parameters
-    
+
     + order_id: 1 (number, required) - Id of the order
     + user_id: 1 (number, required) - Id of the user
 
 + Request (application/json)
 
     + Attributes (UserOrderRequest)
-    
+
 + Response 200 (application/json)
 
     + Attributes (UserOrder)
@@ -233,27 +233,59 @@ Bite is the system used for ordering snacks by Move4Mobile
 + Response 200 (application/json)
 
     + Attributes (array[ProductType])
-    
+
 ### Create a New Product Type [POST]
 
 + Request (application/json)
 
     + Attributes (ProductType)
-    
+
 + Response 201 (application/json)
 
     + Attributes (ProductTypeDetail)
-    
+
 ### Change an Existing Product Type [PUT /product_types/{id}]
 
 + Parameters
-    
+
     + id: 1 (number) - Id of product type
 
 + Request (application/json)
 
     + Attributes (ProductType)
-    
+
 + Response 200 (application/json)
 
     + Attributes (ProductTypeDetail)
+
+## Accessories [/accessories]
+
+### List All Accessories [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Accessory])
+
+### Create a New Accessory [POST]
+
++ Request (application/json)
+
+    + Attributes (Accessory)
+
++ Response 201 (application/json)
+
+    + Attributes (Accessory)
+
+### Change an Existing Accessory [PUT /accessories/{id}]
+
++ Parameters
+
+    + id: 1 (number) - Id of accessory
+
++ Request (application/json)
+
+    + Attributes (Accessory)
+
++ Response 200 (application/json)
+
+    + Attributes (Accessory)
