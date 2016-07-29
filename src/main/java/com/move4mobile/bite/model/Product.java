@@ -3,6 +3,7 @@ package com.move4mobile.bite.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.move4mobile.bite.config.Constants;
 import com.move4mobile.bite.resolver.EntityIdResolver;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class Product extends BaseEntity {
     @Getter
     @Setter
     @NotNull
-    @Column(unique = true)
+    @Column(unique = true, length = Constants.DEFAULT_COLUMN_LENGTH)
     private String name;
 
     @Getter

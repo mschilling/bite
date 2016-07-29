@@ -2,13 +2,13 @@ package com.move4mobile.bite.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.move4mobile.bite.config.Constants;
 import lombok.experimental.PackagePrivate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Created by Wilco Wolters on 21/06/2016.
@@ -25,8 +25,7 @@ public class Tag {
 
     @Id
     @NotNull
-    @Column(length = 60)
-    @Size(max = 60)
+    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String name;
 
     @JsonValue

@@ -1,6 +1,7 @@
 package com.move4mobile.bite.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.move4mobile.bite.config.Constants;
 import com.move4mobile.bite.resolver.EntityIdResolver;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,12 +26,13 @@ public final class User extends BaseEntity implements UserDetails {
     @JsonView(DefaultView.class)
     @Getter
     @Setter
+    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String name;
 
     @Email
     @NotNull
     @JsonView(DefaultView.class)
-    @Column(unique = true)
+    @Column(unique = true, length = 100)
     @Getter
     @Setter
     private String email;
@@ -40,6 +42,7 @@ public final class User extends BaseEntity implements UserDetails {
     @Setter
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonView(RegisterView.class)
+    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String password;
 
     @Getter

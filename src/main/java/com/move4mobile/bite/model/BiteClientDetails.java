@@ -1,5 +1,6 @@
 package com.move4mobile.bite.model;
 
+import com.move4mobile.bite.config.Constants;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -15,12 +16,12 @@ import java.util.*;
 @Entity
 public class BiteClientDetails extends BaseEntity implements ClientDetails {
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = Constants.DEFAULT_COLUMN_LENGTH)
     @Getter
     private String clientId;
 
     @Getter
-    @Column(nullable = false)
+    @Column(nullable = false, length = Constants.DEFAULT_COLUMN_LENGTH)
     private String clientSecret;
 
     @Getter

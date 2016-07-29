@@ -1,6 +1,7 @@
 package com.move4mobile.bite.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.move4mobile.bite.config.Constants;
 import com.move4mobile.bite.resolver.EntityIdResolver;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public final class ProductType extends BaseEntity {
     @Setter
     @NotNull
     @JsonView(DefaultView.class)
+    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String name;
 
     @Getter

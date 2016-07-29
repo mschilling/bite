@@ -4,15 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.move4mobile.bite.config.Constants;
 import com.move4mobile.bite.resolver.EntityIdResolver;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ public class Store extends BaseEntity {
     @Setter
     @NotNull
     @JsonView(DefaultView.class)
+    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String name;
 
     @Getter
