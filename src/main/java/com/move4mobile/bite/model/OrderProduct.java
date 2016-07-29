@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * Created by Wilco Wolters on 06/07/2016.
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "\"order-product-accessory\"", columnNames = {"order_id", "product_id", "accessory_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "`order-product-accessory`", columnNames = {"order_id", "product_id", "accessory_id"}))
 @AllowedAccessory
 public final class OrderProduct extends BaseEntity {
 

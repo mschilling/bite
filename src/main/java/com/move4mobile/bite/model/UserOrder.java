@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Wilco Wolters on 06/07/2016.
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "\"user-order\"", columnNames = {"user_id", "order_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "`user-order`", columnNames = {"user_id", "order_id"}))
 public final class UserOrder extends BaseEntity {
 
     public UserOrder() {
