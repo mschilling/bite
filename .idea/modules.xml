@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bite.iml" filepath="$PROJECT_DIR$/.idea/modules/bite.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bite_main.iml" filepath="$PROJECT_DIR$/.idea/modules/bite_main.iml" group="bite" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bite_test.iml" filepath="$PROJECT_DIR$/.idea/modules/bite_test.iml" group="bite" />
     </modules>
   </component>
 </project>
