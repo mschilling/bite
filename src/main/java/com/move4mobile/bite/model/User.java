@@ -47,7 +47,7 @@ public final class User extends BaseEntity implements UserDetails {
     @JsonIgnore
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles")
+    @CollectionTable(name = "User_Roles")
     @Column(name = "role")
     private Set<Role> roles;
 

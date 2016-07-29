@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Wilco Wolters on 04/07/2016.
  */
 @Entity
-@Table(name = "\"order\"")
+@Table(name = "\"Order\"")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", resolver = EntityIdResolver.class, scope = Order.class)
 public class Order extends BaseEntity {
 
