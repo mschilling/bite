@@ -5,6 +5,7 @@ import com.move4mobile.bite.model.Store;
 import com.move4mobile.bite.model.StoreProduct;
 import com.move4mobile.bite.model.requestbody.ProductPriceUpdateRequestBody;
 import com.move4mobile.bite.service.StoreProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ public class StoreProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     public StoreProduct create(@PathVariable("storeId") Store store, @Valid @RequestBody StoreProduct product) {
         notNull(store, "Store");
         return service.create(store, product.getProduct(), product.getPrice());
