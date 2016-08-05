@@ -150,6 +150,45 @@ Bite is the system used for ordering snacks by Move4Mobile
 
     + Attributes (StoreDetail)
 
+## Products [/stores/{store_id}/products]
+
++ Parameters
+
+    + store_id: 1 (number) - Id of store
+    
+### List All Products [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[StoreProduct])
+    
+### Create New Product [POST]
+
++ Request (application/json)
+
+    + Attributes (StoreProduct)
+    
++ Response 201 (application/json)
+
+    + Attributes (StoreProduct)
+    
+### Change a Product [PUT /stores/{store_id}/products/{product_id}]
+
++ Parameters
+
+    + store_id: 1 (number) - Id of store
+    + product_id: 1 (number) - Id of product
+
++ Request (application/json)
+
+    + Attributes
+        
+        + price: 450 (number) - New price in cents of product
+    
++ Response 200 (application/json)
+
+    + Attributes (StoreProduct)
+
 ## Orders [/orders]
 
 ### List All Orders [GET]
