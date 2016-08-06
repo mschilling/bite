@@ -1,7 +1,7 @@
 package com.move4mobile.bite.config;
 
 import com.move4mobile.bite.exception.ResourceNotFoundException;
-import com.move4mobile.bite.repository.UserRepository;
+import com.move4mobile.bite.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 public class AuthConfig extends GlobalAuthenticationConfigurerAdapter {
 
     @Inject
-    UserRepository userRepository;
+    UserService userService;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -26,7 +26,7 @@ public class AuthConfig extends GlobalAuthenticationConfigurerAdapter {
 
     @Bean
     UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username)
+        return username -> userService.findByEmail(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User"));
     }
 
