@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.inject.Inject;
 
@@ -19,15 +21,23 @@ public class AuthConfig extends GlobalAuthenticationConfigurerAdapter {
     @Inject
     UserService userService;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
     }
 
     @Bean
     UserDetailsService userDetailsService() {
         return username -> userService.findByEmail(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User"));
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

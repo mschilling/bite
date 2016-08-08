@@ -5,6 +5,7 @@ import com.move4mobile.bite.model.BaseEntity;
 import com.move4mobile.bite.model.User;
 import com.move4mobile.bite.service.BaseService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -20,10 +21,14 @@ public class RegisterController {
     @Inject
     private BaseService<User> userService;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @JsonView(BaseEntity.DefaultView.class)
     public User register(@Valid @JsonView(User.RegisterView.class) @RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.store(user);
     }
 
