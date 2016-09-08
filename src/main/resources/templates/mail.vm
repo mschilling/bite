@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="nl">
+<body>
+Hoi $user.name,
+<p>
+Bedankt voor je registratie bij Bite.
+</p>
+<p>
+Groeten,<br>
+Het ontwikkelteam
+</p>
+</body>
+</html>

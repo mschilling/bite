@@ -1,7 +1,6 @@
 
 # Ignore developer properties
-**/config/*.properties
-!**/config/application.properties
+**/config/application-*.properties
 
 ### Java template
 *.class
