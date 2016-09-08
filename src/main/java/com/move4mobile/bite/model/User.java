@@ -42,7 +42,6 @@ public final class User extends BaseEntity implements UserDetails {
     @Setter
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonView(RegisterView.class)
-    @Column(length = Constants.DEFAULT_COLUMN_LENGTH)
     private String password;
 
     @Getter
