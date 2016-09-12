@@ -26,21 +26,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     private RegisterEmailTemplate registerTemplate;
 
     @Override
-    public User store(User user) {
-        if (findByEmail(user.getEmail()).isPresent()) {
-            throw new BadRequestException("User already exists");
-        }
-
-        return super.store(user);
-    }
-
-    @Override
     public Optional<User> findByEmail(String email) {
         return this.<UserRepository>getRepository().findByEmail(email);
     }
 
     @Override
     public User registerUser(User user, boolean sendEmail) {
+        if (findByEmail(user.getEmail()).isPresent()) {
+            throw new BadRequestException("User already exists");
+        }
+
         User registeredUser = store(user);
 
         if (sendEmail) {

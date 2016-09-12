@@ -83,9 +83,9 @@ Bite is the system used for ordering snacks by Move4Mobile
 
 + accessories (array[Accessory]) - List of accessories this product type can use.
 
-## Authentication [/oauth/token]
+## Authentication
 
-### Login [POST]
+### Login [POST /oauth/token]
 
 + Request Username/Password (application/json)
 
@@ -119,6 +119,17 @@ Bite is the system used for ordering snacks by Move4Mobile
         + password: abcdef (string, required)
 
 + Response 201 (application/json)
+
+    + Attributes (User)
+
+### Change Password [PUT /password]
+
++ Request (application/json)
+
+    + Attributes
+        + password: abc (string, required) - New password
+
++ Response 200 (application/json)
 
     + Attributes (User)
 
